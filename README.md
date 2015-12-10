@@ -1,8 +1,9 @@
 # groupbyfunctions
 global, easy to use, group by functions on objects. like linq - but much more simple and functional javascript
 
-there are few function i used to copy paste to do  simplke jobs
-so i jecided to make them global functions and make a module from them
+Here are few function I used to copy paste to do simple jobs.
+
+So I decided to make them global and make a module from them. 
 
 ``` npm install groupbyfunctions ```
 
