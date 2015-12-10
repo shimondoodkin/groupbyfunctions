@@ -1,0 +1,26 @@
+{
+  "name": "groupbyfunctions",
+  "version": "0.1.0",
+  "description": "global, easy to use, group by functions on objects. like linq - but much more simple and functional javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shimondoodkin/groupbyfunctions.git"
+  },
+  "keywords": [
+    "group by",
+    "object map",
+    "object filter",
+    "linq",
+    "object linq"
+  ],
+  "author": "Shimon Doodkin <helpmepro1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shimondoodkin/groupbyfunctions/issues"
+  },
+  "homepage": "https://github.com/shimondoodkin/groupbyfunctions#readme"
+}
