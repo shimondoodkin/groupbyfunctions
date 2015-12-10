@@ -52,6 +52,23 @@ objfilter(groupby(items,'kind'),function(v,k,i){ return v.length>1})
    [ { id: 2, kind: 'type-a', value: 12132 },
      { id: 3, kind: 'type-a', value: 451 } ] }
 
+
+
+     
+var menu=objtokvarr(groupby(items,'kind'),'name','children')
+// result:
+[ { name: 'type-b',
+    children: [ { id: 1, kind: 'type-b', value: 997454 } ] },
+  { name: 'type-a',
+    children:
+     [ { id: 2, kind: 'type-a', value: 12132 },
+       { id: 3, kind: 'type-a', value: 451 } ] },
+  { name: 'type-c',
+    children: [ { id: 4, kind: 'type-c', value: 7894 } ] } ]
+
+
+
+
 //write single level object to string file (tab-seperated-values)
 fs.writeFileSync('items.tsv',objtsv(items));
 
