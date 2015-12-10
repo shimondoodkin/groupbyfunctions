@@ -1,6 +1,32 @@
 # groupbyfunctions
 global, easy to use, group by functions on objects. like linq - but much more simple and functional javascript
 
+there are few function i used to copy paste to do  simplke jobs
+so i jecided to make them global functions and make a module from them
+
+``` npm install groupbyfunctions ```
+
+use:
+
+```javascript
+
+require('groupbyfunctions')
+
+//example:
+
+var items={{id:1,kind:'good',value:12132},{id:2,kind:'good',value:451},{id:3,kind:'bad',value:997454},{id:4,kind:'bad',value:3241}};
+
+var count_of_kinds=objmap(   groupby(items,'kind')  ,  function(items){ return items.length}  )
+//count_of_kinds={ good:2, bad:2 }
+
+var top_kinds=sortobjkey(   groupby(items,'kind') , 'value' )
+
+fs.writeFileSync('items.tsv',objtsv(items));
+
+```
+
+
+the functions:
 
 ```javascript
 
