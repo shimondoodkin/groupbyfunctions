@@ -6,22 +6,55 @@ so i jecided to make them global functions and make a module from them
 
 ``` npm install groupbyfunctions ```
 
-use:
+examples use:
 
 ```javascript
 
+var items=[
+{id:1,kind:'type-b',value:997454},
+{id:2,kind:'type-a',value:12132},
+{id:3,kind:'type-a',value:451},
+{id:4,kind:'type-c',value:7894}];
+
+
 require('groupbyfunctions')
 
-//example:
 
-var items={{id:1,kind:'good',value:12132},{id:2,kind:'good',value:451},{id:3,kind:'bad',value:997454},{id:4,kind:'bad',value:3241}};
 
-var count_of_kinds=objmap(   groupby(items,'kind')  ,  function(items){ return items.length}  )
-//count_of_kinds={ good:2, bad:2 }
 
-var top_kinds=sortobjkey(   groupby(items,'kind') , 'value' )
 
+groupby(items,'kind') 
+//result:
+{ 'type-b': [ { id: 1, kind: 'type-b', value: 997454 } ],
+  'type-a':
+   [ { id: 2, kind: 'type-a', value: 12132 },
+     { id: 3, kind: 'type-a', value: 451 } ],
+  'type-c': [ { id: 4, kind: 'type-c', value: 7894 } ] }
+
+
+
+sortobj(groupby(items,'kind'),function(a,b){return b.length-a.length})
+//result:
+{ 'type-a':
+   [ { id: 2, kind: 'type-a', value: 12132 },
+     { id: 3, kind: 'type-a', value: 451 } ],
+  'type-b': [ { id: 1, kind: 'type-b', value: 997454 } ],
+  'type-c': [ { id: 4, kind: 'type-c', value: 7894 } ] }
+
+objmap(   groupby(items,'kind')  ,  function(items){ return items.length}  )
+//result:
+{ 'type-b': 1, 'type-a': 2, 'type-c': 1 }
+
+
+objfilter(groupby(items,'kind'),function(v,k,i){ return v.length>1})
+//result:
+{ 'type-a':
+   [ { id: 2, kind: 'type-a', value: 12132 },
+     { id: 3, kind: 'type-a', value: 451 } ] }
+
+//write single level object to string file (tab-seperated-values)
 fs.writeFileSync('items.tsv',objtsv(items));
+
 
 ```
 
@@ -65,6 +98,15 @@ objmap=function (obj,func)
 {
  var r={};
  objeach(obj,function(v,k,i){r[k]=func(v,k,i)})
+ return r;
+}
+
+
+//var obj=objmap(obj, function(value,key,index){ return value.field ; } )
+objfilter=function (obj,func)
+{
+ var r={};
+ objeach(obj,function(v,k,i){ if(func(v,k,i)) r[k]=v})
  return r;
 }
 
@@ -122,9 +164,8 @@ sortobj=function (obj,compfunc)
 
 
 
-
-// quickly sort an object by key desc, like get top rows
-sortobjkeydesc=sortobjkey=function (obj,key)
+// quickly sort an object by key's value desc, like then slice 10 to get top rows
+sortobjkey=function (obj,key)
 {
     var keys=Object.keys(obj);
     var kva= keys.map(function(k,i)
@@ -133,21 +174,6 @@ sortobjkeydesc=sortobjkey=function (obj,key)
     });
     kva.sort(function(a,b){
       k=key;      if(a[1][k]>b[1][k]) return -1;if(a[1][k]<b[1][k]) return 1;
-      return 0
-    });
-    var o={}
-    kva.forEach(function(a){ o[a[0]]=a[1]})
-    return o;
-}
-sortobjkeyasc=function (obj,key)
-{
-    var keys=Object.keys(obj);
-    var kva= keys.map(function(k,i)
-    {
-        return [k,obj[k]];
-    });
-    kva.sort(function(a,b){
-      k=key;      if(a[1][k]>b[1][k]) return 1;if(a[1][k]<b[1][k]) return -1;
       return 0
     });
     var o={}
