@@ -1,6 +1,6 @@
 {
   "name": "groupbyfunctions",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "global, easy to use, group by functions on objects. like linq - but much more simple and functional javascript",
   "main": "index.js",
   "scripts": {
