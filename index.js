@@ -1,3 +1,4 @@
+
 // returns an object, 
 // keys are as value of specified field,
 // the values are arrays of elements.
@@ -33,6 +34,15 @@ objmap=function (obj,func)
 {
  var r={};
  objeach(obj,function(v,k,i){r[k]=func(v,k,i)})
+ return r;
+}
+
+
+//var obj=objmap(obj, function(value,key,index){ return value.field ; } )
+objfilter=function (obj,func)
+{
+ var r={};
+ objeach(obj,function(v,k,i){ if(func(v,k,i)) r[k]=v})
  return r;
 }
 
@@ -90,9 +100,8 @@ sortobj=function (obj,compfunc)
 
 
 
-
-// quickly sort an object by key desc, like get top rows
-sortobjkeydesc=sortobjkey=function (obj,key)
+// quickly sort an object by key's value desc, like then slice 10 to get top rows
+sortobjkey=function (obj,key)
 {
     var keys=Object.keys(obj);
     var kva= keys.map(function(k,i)
@@ -101,21 +110,6 @@ sortobjkeydesc=sortobjkey=function (obj,key)
     });
     kva.sort(function(a,b){
       k=key;      if(a[1][k]>b[1][k]) return -1;if(a[1][k]<b[1][k]) return 1;
-      return 0
-    });
-    var o={}
-    kva.forEach(function(a){ o[a[0]]=a[1]})
-    return o;
-}
-sortobjkeyasc=function (obj,key)
-{
-    var keys=Object.keys(obj);
-    var kva= keys.map(function(k,i)
-    {
-        return [k,obj[k]];
-    });
-    kva.sort(function(a,b){
-      k=key;      if(a[1][k]>b[1][k]) return 1;if(a[1][k]<b[1][k]) return -1;
       return 0
     });
     var o={}
