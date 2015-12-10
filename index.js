@@ -24,7 +24,7 @@ objeach=function (obj,f)
     });
 }
 
-kvroarr=function (obj,k,v)
+objtokvarr=function (obj,k,v)
 {
     if(!k) k="k";
     if(!v) v="v";
