@@ -134,24 +134,49 @@ objfilter=function (obj,func)
 // sortobj(obj,function compfunc(a,b,aname,bname){ return b.field - a.field; });
 //
 //  comparator function is optional:
+//   a comparator function returns 0 if parameters eqals,
+//   a larger than zero value if a larger than b, or 
+//   a less than zero value if a is smaler than b
+//
+//  in my comparator there are also aname and bname arguments it is possible to use them optionally.
 //
 //  exampels for comparator functions
-//  function compfunc(a,b,aname,bname) 
+//
+//  //objct's sub property
+//  sortobj(obj,function compfunc(a,b,aname,bname) 
 //  {
 //    if(a.field>b.field) return 1;
 //    if(a.field<b.field) return -1;
 //    return 0
-//  }
+//  })
 //
-//  function compfunc(a,b,aname,bname)
+//  //multiple columns sort
+//  sortobj(obj,function compfunc(a,b,aname,bname) 
 //  {
-//    return b.field - a.field;
-//  }
+//    if(a.field>b.field) return 1;   // first sort by this fileld
+//    if(a.field<b.field) return -1;
 //
-//  function compfunc(a,b,aname,bname)
+//    if(a.fieldb>b.fieldb) return 1; // if fields above is eqals, then sort by this fileld
+//    if(a.fieldb<b.fieldb) return -1;
+//
+//    return 0 // if everything eqals return equals
+//  })
+//
+//  sort by integer, maybe desc (swap fields if needed)
+//  sortobj(obj,function compfunc(a,b,aname,bname){return b.field - a.field;}
+//
+//  sort by string using unicode char order
+//  sortobj(obj,function compfunc(a,b,aname,bname)
 //  {
 //    return a.localeCompare(b)
-//  }
+//  })
+//
+//  sort object  by keys
+//  sortobj(obj,function compfunc(a,b,aname,bname)
+//  {
+//            if(aname>bbane) return 1;if(aname<bname) return -1;
+//            return 0
+//  })
 //
 //
 
@@ -182,7 +207,7 @@ sortobj=function (obj,compfunc)
 
 
 
-// quickly sort an object by key's value desc, like then slice 10 to get top rows
+// quickly sort an object's keys by value is desc order, like: to get top rows
 sortobjkey=function (obj,key)
 {
     var keys=Object.keys(obj);
@@ -199,6 +224,17 @@ sortobjkey=function (obj,key)
     return o;
 }
 
+
+// quickly sort an object's keys by their name
+sortkeys=function (obj,comp)
+{
+    var o={}
+    Object.keys(obj).
+     sort(comp).
+      forEach(function(k){ o[k]=obj[k]});
+    return o;
+}
+
 // convert object to array of objects of key and value
 // obj={aa:123}
 // var arr=objtokvarr(obj) // arr=[ {k:aa,v:123} ]
@@ -211,8 +247,6 @@ objtokvarr=function (obj,k,v)
     var r=[];
     keys.forEach(function(kk,i)
     {
-        var o={};
-        var o={};
         var o={};
         o[k]=kk;
         o[v]=obj[kk];
