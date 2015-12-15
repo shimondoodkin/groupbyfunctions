@@ -1,29 +1,28 @@
 
-// returns an object, 
-// keys are as value of specified field,
-// the values are arrays of elements.
-groupby=function (p,field)
+// receives an array
+// returns an object,
+//  the keys of it are as value of specified field,
+//  the values of it are arrays of elements.
+groupby=function (objarr,field)
 {
-    var u=[];
-    var uu={};
-    p.forEach(function(a)
+    var existingGroups=[];
+    var grouped={};
+    objarr.forEach(function(obj)
     {
-        if(u.indexOf(a[field])==-1)
-        {
-            u.push(a[field]);
-            uu[a[field]]=[a];
-        }
-        else uu[a[field]].push(a);
+        var groupname=obj[field];
+        if(groupname in grouped)
+         grouped[groupname].push(obj);
+        else
+         grouped[groupname]=[obj];
     });
-    return uu;
+    return grouped;
 }
 
 // for each on object keys
 //objeach(obj, function(value,key,index){ } )
 objeach=function (obj,func)
 {
-    var keys=Object.keys(obj);
-    return keys.forEach(function(k,i)
+    return Object.keys(obj).forEach(function(k,i)
     {
         return func(obj[k],k,i);
     });
@@ -52,24 +51,49 @@ objfilter=function (obj,func)
 // sortobj(obj,function compfunc(a,b,aname,bname){ return b.field - a.field; });
 //
 //  comparator function is optional:
+//   a comparator function returns 0 if parameters eqals,
+//   a larger than zero value if a larger than b, or 
+//   a less than zero value if a is smaler than b
+//
+//  in my comparator there are also aname and bname arguments it is possible to use them optionally.
 //
 //  exampels for comparator functions
-//  function compfunc(a,b,aname,bname) 
+//
+//  //objct's sub property
+//  sortobj(obj,function compfunc(a,b,aname,bname) 
 //  {
 //    if(a.field>b.field) return 1;
 //    if(a.field<b.field) return -1;
 //    return 0
-//  }
+//  })
 //
-//  function compfunc(a,b,aname,bname)
+//  //multiple columns sort
+//  sortobj(obj,function compfunc(a,b,aname,bname) 
 //  {
-//    return b.field - a.field;
-//  }
+//    if(a.field>b.field) return 1;   // first sort by this fileld
+//    if(a.field<b.field) return -1;
 //
-//  function compfunc(a,b,aname,bname)
+//    if(a.fieldb>b.fieldb) return 1; // if fields above is eqals, then sort by this fileld
+//    if(a.fieldb<b.fieldb) return -1;
+//
+//    return 0 // if everything eqals return equals
+//  })
+//
+//  sort by integer, maybe desc (swap fields if needed)
+//  sortobj(obj,function compfunc(a,b,aname,bname){return b.field - a.field;}
+//
+//  sort by string using unicode char order
+//  sortobj(obj,function compfunc(a,b,aname,bname)
 //  {
 //    return a.localeCompare(b)
-//  }
+//  })
+//
+//  sort object  by keys
+//  sortobj(obj,function compfunc(a,b,aname,bname)
+//  {
+//            if(aname>bbane) return 1;if(aname<bname) return -1;
+//            return 0
+//  })
 //
 //
 
@@ -100,20 +124,28 @@ sortobj=function (obj,compfunc)
 
 
 
-// quickly sort an object by key's value desc, like then slice 10 to get top rows
+// quickly sort an object's keys by value is desc order, like: to get top rows
 sortobjkey=function (obj,key)
 {
-    var keys=Object.keys(obj);
-    var kva= keys.map(function(k,i)
-    {
+    var o={}
+    Object.keys(obj).map(function(k,i) {
         return [k,obj[k]];
-    });
-    kva.sort(function(a,b){
+    }).
+     sort(function(a,b){
       k=key;      if(a[1][k]>b[1][k]) return -1;if(a[1][k]<b[1][k]) return 1;
       return 0
-    });
+     }).
+      forEach(function(a){ o[a[0]]=a[1]})
+    return o;
+}
+
+// quickly sort an object's keys by their name
+sortkeys=function (obj,comp)
+{
     var o={}
-    kva.forEach(function(a){ o[a[0]]=a[1]})
+    Object.keys(obj).
+     sort(comp).
+      forEach(function(k){ o[k]=obj[k]});
     return o;
 }
 
@@ -129,8 +161,6 @@ objtokvarr=function (obj,k,v)
     var r=[];
     keys.forEach(function(kk,i)
     {
-        var o={};
-        var o={};
         var o={};
         o[k]=kk;
         o[v]=obj[kk];
