@@ -121,6 +121,7 @@ the functions:
 
 ```javascript
 
+
 // receives an array
 // returns an object,
 //  the keys of it are as value of specified field,
@@ -213,7 +214,7 @@ objfilter=function (obj,func)
 //  sort object  by keys
 //  sortobj(obj,function compfunc(a,b,aname,bname)
 //  {
-//            if(aname>bbane) return 1;if(aname<bname) return -1;
+//            if(aname>bname) return 1;if(aname<bname) return -1;
 //            return 0
 //  })
 //
