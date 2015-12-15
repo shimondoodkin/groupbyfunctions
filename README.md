@@ -5,6 +5,43 @@ Here are few function I used to copy paste to do simple jobs.
 
 So I decided to make them global and make a module from them. 
 
+
+```text
+  groupby
+    ✓ should sort items into buckets. return an object - put each item of an array into an object property, according to value of a specified field
+
+  objeach
+    ✓ should be iterate for each on object's properties
+
+  objmap
+    ✓ should be return a new object with same names and values updated by map function
+
+  objfilter
+    ✓ should be return a new object with properties filtered by their value
+
+  sortobj
+    ✓ should sort object's keys by their names
+    ✓ should be able to use optional comparator
+
+  sortobjkey
+    ✓ should sort object's keys by value is desc order
+
+  sortkeys
+    ✓ should sort object's keys by their names
+    ✓ should be able to use optional comparator
+
+  objtokvarr
+    ✓ should convert object to array of objects of key and value
+    ✓ should be able to use defined names
+
+  objtsv
+    ✓ should convert array of objects to tab seperated values string
+
+
+  12 passing (33ms)
+```
+
+
 ``` npm install groupbyfunctions ```
 
 examples use:
