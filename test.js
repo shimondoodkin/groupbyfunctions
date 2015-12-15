@@ -12,7 +12,6 @@ var assert = require("assert");
 require('./index')
 
 // the values are arrays of elements.
-groupby=function (p,field)
 describe('groupby',function(){
  it("should sort items into buckets. return an object - put each item of an array into an object property, according to value of a specified field",function(){
   var arr=[
