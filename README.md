@@ -7,6 +7,9 @@ So I decided to make them global and make a module from them.
 
 
 ```text
+
+tests:
+
   groupby
     ✓ should sort items into buckets. return an object - put each item of an array into an object property, according to value of a specified field
 
