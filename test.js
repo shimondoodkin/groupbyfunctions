@@ -23,7 +23,7 @@ describe('groupby',function(){
     a:[ {n:1,v:'a'} ],
     b:[ {n:2,v:'b'}, {n:3,v:'b'} ] 
   };
-  assert.deepEqual(arr,result);
+  assert.deepEqual(groupby(arr,'v'),result);
  })
 })
 
@@ -148,9 +148,9 @@ describe('objtokvarr',function(){
   
 describe('objtsv',function(){
  it("should convert array of objects to tab seperated values string",function(){
-  var tsv='id  name\r\n'+
-          '1  aaa\r\n'+
-          '2  bbb';
+  var tsv='id\tname\r\n'+
+          '1\taaa\r\n'+
+          '2\tbbb';
   var objarr=[ {id:1,name:"aaa"}, {id:2,name:"bbb"} ]
 
    assert.deepEqual(objtsv(objarr),tsv);
