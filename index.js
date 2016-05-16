@@ -45,19 +45,19 @@ objfilter=function (obj,func)
  return r;
 }
 
-// sort object keys by theis values
+// sort object keys by their values
 // sortobj(obj);
 //
 // sortobj(obj,function compfunc(a,b,aname,bname){ return b.field - a.field; });
 //
 //  comparator function is optional:
-//   a comparator function returns 0 if parameters eqals,
+//   a comparator function returns 0 if parameters equals,
 //   a larger than zero value if a larger than b, or 
-//   a less than zero value if a is smaler than b
+//   a less than zero value if a is smaller than b
 //
 //  in my comparator there are also aname and bname arguments it is possible to use them optionally.
 //
-//  exampels for comparator functions
+//  examples for comparator functions
 //
 //  //objct's sub property
 //  sortobj(obj,function compfunc(a,b,aname,bname) 
@@ -70,13 +70,13 @@ objfilter=function (obj,func)
 //  //multiple columns sort
 //  sortobj(obj,function compfunc(a,b,aname,bname) 
 //  {
-//    if(a.field>b.field) return 1;   // first sort by this fileld
+//    if(a.field>b.field) return 1;   // first sort by this field
 //    if(a.field<b.field) return -1;
 //
-//    if(a.fieldb>b.fieldb) return 1; // if fields above is eqals, then sort by this fileld
+//    if(a.fieldb>b.fieldb) return 1; // if fields above is equal, then sort by this field
 //    if(a.fieldb<b.fieldb) return -1;
 //
-//    return 0 // if everything eqals return equals
+//    return 0 // if everything equal, return equals
 //  })
 //
 //  sort by integer, maybe desc (swap fields if needed)
@@ -170,10 +170,10 @@ objtokvarr=function (obj,k,v)
 }
 
 // converts array of objects to a text table
-// columns seperated by tabs
+// columns separated by tabs
 // first row is key names.
 //
-// (its something you can paste in to excel, or save to tsv file)
+// (it's something you can paste into excel, or save to tsv file)
 // 
 // var products=[{id:1,name:"aaa"},{id:2,name:"bbb"}]
 // fs.writeFileSync('products.tsv',objtsv(products));
