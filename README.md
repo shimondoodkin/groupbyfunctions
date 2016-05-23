@@ -74,7 +74,7 @@ groupby(items,'kind')
 
 
 
-sortobj(groupby(items,'kind'),function(a,b){return b.length-a.length})
+sortobj(groupby(items,'kind'),function(aval,bval,akey,bkey){return bval.length-aval.length})
 //result:
 { 'type-a':
    [ { id: 2, kind: 'type-a', value: 12132 },
